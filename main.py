@@ -23,10 +23,9 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup():
-    if os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("RAILWAY_PROJECT_ID"):
-        import subprocess
-        os.environ["PLAYWRIGHT_BROWSERS_PATH"] = "/app/playwright"
-        subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=False)
+    import subprocess
+    os.environ["PLAYWRIGHT_BROWSERS_PATH"] = "/app/playwright"
+    subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=False)
 
 
 @app.get("/")
