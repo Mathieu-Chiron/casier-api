@@ -4,6 +4,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+ENV PLAYWRIGHT_BROWSERS_PATH=/app/playwright
+RUN playwright install chromium
+
 COPY . .
 
 CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}
