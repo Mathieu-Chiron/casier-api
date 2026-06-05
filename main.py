@@ -34,10 +34,14 @@ def debug():
     ms_contents = glob.glob("/ms-playwright/*") if os.path.isdir("/ms-playwright") else []
     app_contents = glob.glob("/app/playwright/*") if os.path.isdir("/app/playwright") else []
     all_chromium = subprocess.run(["find", "/", "-name", "chrome-headless-shell", "-type", "f"], capture_output=True, text=True, timeout=5)
+    ms_chromium = glob.glob("/ms-playwright/chromium_headless_shell-*/*")
+    app_chromium = glob.glob("/app/playwright/chromium_headless_shell-*/*")
+    sys_chromium = subprocess.run(["find", "/usr/bin", "/usr/lib/chromium*", "-name", "chrom*", "-type", "f"], capture_output=True, text=True, timeout=5)
     return {
         "PLAYWRIGHT_BROWSERS_PATH": pw_path,
-        "/ms-playwright contents": ms_contents,
-        "/app/playwright contents": app_contents,
+        "/ms-playwright/chromium_headless_shell-* contents": ms_chromium,
+        "/app/playwright/chromium_headless_shell-* contents": app_chromium,
+        "system chromium": sys_chromium.stdout.strip().splitlines(),
         "chrome-headless-shell found at": all_chromium.stdout.strip().splitlines(),
     }
 
