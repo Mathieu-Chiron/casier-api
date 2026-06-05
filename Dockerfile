@@ -4,8 +4,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-ENV PLAYWRIGHT_BROWSERS_PATH=/app/playwright
-RUN playwright install chromium
+RUN PLAYWRIGHT_BROWSERS_PATH=/app/playwright playwright install chromium
 
 COPY . .
 
