@@ -1,5 +1,4 @@
 import os
-import sys
 import asyncio
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,11 +20,6 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-async def startup():
-    import subprocess
-    os.environ["PLAYWRIGHT_BROWSERS_PATH"] = "/app/playwright"
-    subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=False)
 
 
 @app.get("/")
